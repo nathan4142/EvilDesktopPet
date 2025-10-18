@@ -60,6 +60,7 @@ namespace EvilDesktopPet
 
             // Pick initial direction
             PickNewWanderDirection();
+            TestCreateFile();
         }
 
 
@@ -86,6 +87,20 @@ namespace EvilDesktopPet
              */
         }
 
+
+        private void TestCreateFile()
+        {
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktop, "Virus.bat");
+
+            // Batch content: opens Notepad with a temporary text file containing the message
+            string batchContent = "@echo off\n" +
+                                  "echo Please enter your credit card info below Please.... > \"%TEMP%\\Message.txt\"\n" +
+                                  "notepad \"%TEMP%\\Message.txt\"\n";
+
+            File.WriteAllText(filePath, batchContent);
+
+        }
         private void OnehundredOpenCloseJumpscare()
         {
             for(int i = 0; i < 30; i++)
@@ -192,25 +207,25 @@ namespace EvilDesktopPet
             }
 
             // Check cursor position
+            // Check cursor position
             if (GetCursorPos(out POINT cursor))
             {
                 // Check if cursor is over the pet window
                 if (!isHoldingMouse &&
-                    cursor.X >= Left && cursor.X <= Left + Width &&
-                    cursor.Y >= Top && cursor.Y <= Top + Height)
+                    cursor.X >= Left && cursor.X <= Left + 110 +  Width &&
+                    cursor.Y >= Top && cursor.Y <= Top + 300 + Height)
                 {
                     isHoldingMouse = true;
                 }
 
                 if (isHoldingMouse)
                 {
-                    // Move the cursor along with the pet
-                    int newCursorX = (int)(Left + 75);
-                    int newCursorY = (int)(Top + 65);
+                    // Move the cursor to the center of the window
+                    int newCursorX = (int)(Left + Width + 20);
+                    int newCursorY = (int)(Top + Height + 23);
                     SetCursorPos(newCursorX, newCursorY);
 
-                    // Optionally: stop holding after a while
-                    // For example, release after 2 seconds (40 ticks at 50ms)
+                    // Optionally release after some time
                     ticksUntilDirectionChange--;
                     if (ticksUntilDirectionChange <= 0)
                     {
@@ -219,6 +234,7 @@ namespace EvilDesktopPet
                     }
                 }
             }
+
         }
 
 

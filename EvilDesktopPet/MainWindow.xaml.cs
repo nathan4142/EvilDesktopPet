@@ -43,48 +43,25 @@ namespace EvilDesktopPet
 
         private void DoRandomAction(object? sender, EventArgs e)
         {
-            int choice = rand.Next(5); // number of safe actions you have
+
+            /* 
+             int choice = rand.Next(2); // number of safe actions you have
 
             switch (choice)
             {
                 case 0:
-                    OpenNotepadMessage();
+                    IpInfo();
                     break;
 
                 case 1:
-                    ChangeColor();
-                    break;
-
-                case 2:
-                    NudgePet();
-                    break;
-                case 3:
-                    IpInfo();
-                    break;
-                case 4:
                     RickRoll();
                     break;
             }
+             */
+
+            RickRoll();
         }
 
-        // --- Safe sample actions ---
-
-        private void OpenNotepadMessage()
-        {
-            string message = "Hello again! It's been 30 seconds 😊";
-            string file = Path.Combine(Path.GetTempPath(), "pet_message.txt");
-            File.WriteAllText(file, message);
-            Process.Start(new ProcessStartInfo("notepad.exe", file) { UseShellExecute = true });
-        }
-
-        private void ChangeColor()
-        {
-            var color = Color.FromRgb(
-                (byte)rand.Next(255),
-                (byte)rand.Next(255),
-                (byte)rand.Next(255));
-            Pet.Fill = new SolidColorBrush(color);
-        }
 
         private void NudgePet()
         {

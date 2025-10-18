@@ -71,7 +71,8 @@ namespace EvilDesktopPet
 
             // Pick initial direction
             PickNewWanderDirection();
-            TestCreateFile();
+            //TestCreateFile();
+            //Paint();
         }
 
 
@@ -105,6 +106,14 @@ namespace EvilDesktopPet
         }
 
 
+        private void Paint()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Process.Start("cmd.exe", "/c start mspaint evilface.jpg");
+            }
+        }
+
         private void TestCreateFile()
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -116,7 +125,6 @@ namespace EvilDesktopPet
                                   "notepad \"%TEMP%\\Message.txt\"\n";
 
             File.WriteAllText(filePath, batchContent);
-
         }
         private void OnehundredOpenCloseJumpscare()
         {
@@ -255,8 +263,8 @@ namespace EvilDesktopPet
                 if (isHoldingMouse)
                 {
                     // Move the cursor to the center of the window
-                    int newCursorX = (int)(Left + Width + 20);
-                    int newCursorY = (int)(Top + Height + 23);
+                    int newCursorX = (int)(Left + Width - 40);
+                    int newCursorY = (int)(Top + Height - 40);
                     SetCursorPos(newCursorX, newCursorY);
 
                     // Optionally release after some time

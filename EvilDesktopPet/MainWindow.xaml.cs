@@ -74,9 +74,9 @@ namespace EvilDesktopPet
             //TestCreateFile();
             //Paint();
             //Smile();
-            TestCreateFile();
+            //TestCreateFile();
             //Smile();
-            PlayWabash();
+            //PlayWabash();
             //TestCreateFile();
             RansomeWindow window = new RansomeWindow();
             window.Show();
@@ -118,7 +118,7 @@ namespace EvilDesktopPet
              */
             //RickRoll();
             //RickRoll();
-            SpawnClone();
+            //SpawnClone();
         }
 
         private void Smile()
@@ -204,19 +204,11 @@ namespace EvilDesktopPet
         public void PlayWabash()
         { 
             System.Media.SoundPlayer wabash = new System.Media.SoundPlayer();
-            string filePath = "C:\\Users\\soren\\Source\\Repos\\EvilDesktopPet\\EvilDesktopPet\\wabash.wav";
-            if (File.Exists(filePath))
-            {
-                MessageBox.Show("Does exist");
-            }
-            else 
-            {
-                MessageBox.Show("Does not exist");
-            }
-            /*
-            wabash.SoundLocation = "EvilDesktopPet"; // Ensure the WAV file is in the executable directory
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wabash.wav");
+
+            wabash.SoundLocation = filePath; // Ensure the WAV file is in the executable directory
             wabash.Load();
-            wabash.Play();*/
+            wabash.Play();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

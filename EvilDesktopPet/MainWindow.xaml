@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EvilDesktopPet"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Desktop Pet"
+        Width="200" Height="200"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseMove="Window_MouseMove"
+        MouseLeftButtonUp="Window_MouseLeftButtonUp">
 
-    </Grid>
+    <Canvas>
+        <!-- The desktop pet -->
+        <Rectangle x:Name="Pet"
+                   Width="80" Height="80"
+                   Fill="Orange"
+                   RadiusX="20" RadiusY="20"
+                   MouseLeftButtonDown="Pet_MouseLeftButtonDown"/>
+    </Canvas>
 </Window>

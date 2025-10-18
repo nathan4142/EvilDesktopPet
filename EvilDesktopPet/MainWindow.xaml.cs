@@ -76,10 +76,10 @@ namespace EvilDesktopPet
             //Smile();
             //TestCreateFile();
             //Smile();
-            //PlayWabash();
+            PlayWabash();
             //TestCreateFile();
-            RansomeWindow window = new RansomeWindow();
-            window.Show();
+            //RansomeWindow window = new RansomeWindow();
+            //window.Show();
             //TextToSpeech();
         }
 

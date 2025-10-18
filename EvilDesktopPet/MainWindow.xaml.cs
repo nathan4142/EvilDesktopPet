@@ -189,7 +189,7 @@ namespace EvilDesktopPet
         public void PlayWabash()
         { 
             System.Media.SoundPlayer wabash = new System.Media.SoundPlayer();
-            string filePath = "C:\\Users\\soren\\Source\\Repos\\EvilDesktopPet\\EvilDesktopPet\\wabash.wav";
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wabash.wav");
             if (File.Exists(filePath))
             {
                 MessageBox.Show("Does exist");

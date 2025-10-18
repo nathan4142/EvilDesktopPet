@@ -15,7 +15,9 @@ namespace EvilDesktopPet
 {
     public partial class MainWindow : Window
     {
-
+        private bool isClone = false;
+        private readonly Random rand = new Random();
+        private readonly DispatcherTimer actionTimer = new DispatcherTimer();
 
 
         [DllImport("user32.dll")]
@@ -34,8 +36,8 @@ namespace EvilDesktopPet
 
         private bool isDragging = false;
         private Point clickPosition;
-        private readonly Random rand = new Random();
-        private readonly DispatcherTimer actionTimer = new DispatcherTimer();
+        
+        
         private readonly DispatcherTimer wanderTimer = new DispatcherTimer();
         private double wanderSpeed = 2; // pixels per tick
         private double wanderDirectionX;
@@ -43,15 +45,24 @@ namespace EvilDesktopPet
         private int ticksUntilDirectionChange;
 
 
-
-        public MainWindow()
+        public MainWindow() : this(false) { }
+        public MainWindow(bool clone = false)
         {
             InitializeComponent();
 
             // Action timer
-            actionTimer.Interval = TimeSpan.FromSeconds(5);
-            actionTimer.Tick += DoRandomAction;
-            actionTimer.Start();
+            cloneCount++;
+
+            this.Closed += (s, e) => cloneCount--;
+
+            isClone = clone;
+            if (!isClone)
+            {
+                // Only the original pet moves and acts
+                actionTimer.Interval = TimeSpan.FromSeconds(5);
+                actionTimer.Tick += DoRandomAction;
+                actionTimer.Start();
+            }
 
             // Wandering timer
             wanderTimer.Interval = TimeSpan.FromMilliseconds(50);
@@ -71,7 +82,7 @@ namespace EvilDesktopPet
         {
 
             /* 
-             int choice = rand.Next(3); // number of safe actions you have
+             int choice = rand.Next(4); // number of safe actions you have
 
             switch (choice)
             {
@@ -85,8 +96,14 @@ namespace EvilDesktopPet
                 case 2:
                     OnehundredOpenCloseJumpscare();
                     break;
+                case 3:
+                    SpawnClone();
+                    break;
             }
              */
+            //RickRoll();
+            //RickRoll();
+            SpawnClone();
         }
         private void Paint()
         {
@@ -166,6 +183,7 @@ namespace EvilDesktopPet
        
             MessageBox.Show(message, "Evil Desktop Pet");
         }
+
 
         // 🐾 Click & drag to move the pet
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -277,7 +295,22 @@ namespace EvilDesktopPet
             ticksUntilDirectionChange = rand.Next(20, 60); // 20–60 ticks of 50 ms = 1–3 seconds
         }
 
+        private static int cloneCount = 0;
+        private const int maxClones = 5;
+
+        private void SpawnClone()
+        {
+            if (cloneCount >= maxClones)
+                return;
+            MainWindow clone = new MainWindow(true); // <- mark as clone
+            clone.Left = this.Left + rand.Next(-200, 200);
+            clone.Top = this.Top + rand.Next(-200, 200);
+            clone.Show();
+        }
+
 
     }
 
-}
+    }
+
+

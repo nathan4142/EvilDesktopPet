@@ -26,7 +26,7 @@ namespace EvilDesktopPet
         ProgressBar waterBar;
         ProgressBar energyBar;
         TextBlock pps;
-        int shopPoints = 0;
+        public int shopPoints = 0;
         public PetCareWindow()
         {
             InitializeComponent();

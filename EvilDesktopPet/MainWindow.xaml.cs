@@ -19,7 +19,9 @@ namespace EvilDesktopPet
         private bool isClone = false;
         private readonly Random rand = new Random();
         private readonly DispatcherTimer actionTimer = new DispatcherTimer();
-
+        private readonly DispatcherTimer curseDurationTimer = new DispatcherTimer();
+        private readonly DispatcherTimer curse = new DispatcherTimer();
+        private bool isCursed = false;
 
         [DllImport("user32.dll")]
         private static extern bool SetCursorPos(int X, int Y);
@@ -46,8 +48,7 @@ namespace EvilDesktopPet
         private int ticksUntilDirectionChange;
 
 
-        public MainWindow() : this(false) { }
-        public MainWindow(bool clone = false)
+        public MainWindow()
         {
             wanderTimer.Interval = TimeSpan.FromMilliseconds(50);
             wanderTimer.Tick += WanderAround;
@@ -95,9 +96,9 @@ namespace EvilDesktopPet
             /***************************************************
             * For Testing put method below
             ****************************************************/
-            PetCareWindow window = new PetCareWindow();
-            window.Show();
-
+            //PetCareWindow window = new PetCareWindow();
+            //window.Show();
+            CastHex();
 
             /***************************************************
             * For how it will run for real, uncomment below
@@ -169,7 +170,7 @@ namespace EvilDesktopPet
         private void DoRandomAction(object? sender, EventArgs e)
         {
 
-             int choice = rand.Next(10); // number of safe actions you have
+             int choice = rand.Next(11); // number of safe actions you have
 
             switch (choice)
             {
@@ -204,6 +205,9 @@ namespace EvilDesktopPet
                 case 9:
                     PlayHorror();
                     break;
+                case 10:
+                    CastHex();
+                    break;
             }
             
         }
@@ -211,12 +215,12 @@ namespace EvilDesktopPet
 
         #region Possible Actions
         /******************************************************************************
-        *   Number of actions: 10
+        *   Number of actions: 11
         ******************************************************************************/
 
         /// <summary>
         /// Uses TTS to say a mean message
-        /// </summary>
+        /// </summary>1
         private void TextToSpeech()
         {
             string[] messages = {
@@ -375,6 +379,41 @@ namespace EvilDesktopPet
             horror.Load();
             horror.Play();
         }
+
+        private void CastHex()
+        {
+            string message = "I cast a hex on you";
+
+            using (SpeechSynthesizer synthesizer = new SpeechSynthesizer())
+            {
+                synthesizer.Speak(message);
+            }
+
+            curseDurationTimer.Interval = TimeSpan.FromSeconds(20);
+            curseDurationTimer.Tick += Uncurse;
+            curseDurationTimer.Start();
+            isCursed = true;
+
+            curse.Interval = TimeSpan.FromSeconds(1);
+            curse.Tick += Hex;
+            curse.Start();
+
+            
+        }
+
+        private void Uncurse(object? sender, EventArgs e)
+        {
+            isCursed = false;
+            curse.Stop();
+        }
+        private void Hex(object? sender, EventArgs e)
+        {
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+            int newCursorX = rand.Next((int)screenWidth);
+            int newCursorY = rand.Next((int)screenHeight);
+            SetCursorPos(newCursorX, newCursorY);
+        }
         #endregion
 
 
@@ -424,14 +463,12 @@ namespace EvilDesktopPet
             if (Left + Width > screenWidth) { Left = screenWidth - Width; wanderDirectionX = -Math.Abs(wanderDirectionX); }
             if (Top + Height > screenHeight) { Top = screenHeight - Height; wanderDirectionY = -Math.Abs(wanderDirectionY); }
 
-            // Update ticks for direction change
             ticksUntilDirectionChange--;
             if (ticksUntilDirectionChange <= 0)
             {
                 PickNewWanderDirection();
             }
 
-            // Check cursor position
             // Check cursor position
             if (GetCursorPos(out POINT cursor))
             {
@@ -445,12 +482,10 @@ namespace EvilDesktopPet
 
                 if (isHoldingMouse)
                 {
-                    // Move the cursor to the center of the window
                     int newCursorX = (int)(Left + Width - 40);
                     int newCursorY = (int)(Top + Height - 40);
                     SetCursorPos(newCursorX, newCursorY);
 
-                    // Optionally release after some time
                     ticksUntilDirectionChange--;
                     if (ticksUntilDirectionChange <= 0)
                     {
@@ -475,12 +510,13 @@ namespace EvilDesktopPet
             ticksUntilDirectionChange = rand.Next(20, 60); // 20–60 ticks of 50 ms = 1–3 seconds
         }
 
+
+        /*
         private static int cloneCount = 0;
         private const int maxClones = 5;
         private static readonly object instancesLock = new object();
         private static readonly List<MainWindow> instances = new List<MainWindow>();
-
-        private void SpawnClone()
+         * private void SpawnClone()
         {
             if (cloneCount >= maxClones)
                 return;
@@ -532,6 +568,9 @@ namespace EvilDesktopPet
                 _ = w.RunGlitch();
             }
         }
+         * 
+         */
+
 
 
     }

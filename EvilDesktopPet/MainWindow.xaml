@@ -23,6 +23,6 @@
                    Width="80" Height="80"
                    Fill="Orange"
                    RadiusX="20" RadiusY="20"
-                   MouseLeftButtonDown="Pet_MouseLeftButtonDown"/>
+                   />
     </Canvas>
 </Window>

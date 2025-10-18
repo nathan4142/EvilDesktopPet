@@ -6,19 +6,126 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace EvilDesktopPet
 {
     public partial class MainWindow : Window
     {
+        
+
+
+
+
+
+
+
+
+
         private bool isDragging = false;
         private Point clickPosition;
-        private Random rand = new Random();
+        private readonly Random rand = new Random();
+        private readonly DispatcherTimer actionTimer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Fire every 30 seconds
+            actionTimer.Interval = TimeSpan.FromSeconds(5);
+            actionTimer.Tick += DoRandomAction;
+            actionTimer.Start();
+
+
+
         }
+
+        private void DoRandomAction(object? sender, EventArgs e)
+        {
+            int choice = rand.Next(5); // number of safe actions you have
+
+            switch (choice)
+            {
+                case 0:
+                    OpenNotepadMessage();
+                    break;
+
+                case 1:
+                    ChangeColor();
+                    break;
+
+                case 2:
+                    NudgePet();
+                    break;
+                case 3:
+                    IpInfo();
+                    break;
+                case 4:
+                    RickRoll();
+                    break;
+            }
+        }
+
+        // --- Safe sample actions ---
+
+        private void OpenNotepadMessage()
+        {
+            string message = "Hello again! It's been 30 seconds 😊";
+            string file = Path.Combine(Path.GetTempPath(), "pet_message.txt");
+            File.WriteAllText(file, message);
+            Process.Start(new ProcessStartInfo("notepad.exe", file) { UseShellExecute = true });
+        }
+
+        private void ChangeColor()
+        {
+            var color = Color.FromRgb(
+                (byte)rand.Next(255),
+                (byte)rand.Next(255),
+                (byte)rand.Next(255));
+            Pet.Fill = new SolidColorBrush(color);
+        }
+
+        private void NudgePet()
+        {
+            // Move a little bit to a random nearby spot
+            double dx = rand.Next(-30, 31);
+            double dy = rand.Next(-30, 31);
+            Left = Math.Max(0, Left + dx);
+            Top = Math.Max(0, Top + dy);
+        }
+
+
+        private async void IpInfo()
+        {
+            string ipInfo = await GetIpInfoAsync();
+            string[] messages = {
+                "I know where you live",
+            };
+
+            // Compose final message
+            string message = messages[new Random().Next(messages.Length)]
+                             + Environment.NewLine + Environment.NewLine
+                             + "----- IP Info -----" + Environment.NewLine
+                             + ipInfo;
+
+            string tempFile = Path.Combine(Path.GetTempPath(), "pet_message.txt");
+            File.WriteAllText(tempFile, message);
+
+            Process.Start(new ProcessStartInfo("notepad.exe", tempFile)
+            {
+                UseShellExecute = true
+            });
+            
+        }
+
+
+        private void RickRoll()
+        {
+            Process.Start("cmd.exe", "/c start chrome https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        }
+
+
 
         // 🐾 Click & drag to move the pet
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -44,28 +151,6 @@ namespace EvilDesktopPet
             ReleaseMouseCapture();
         }
 
-        // 💬 When you click the pet, it opens Notepad with a nice message
-        private async void Pet_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            string ipInfo = await GetIpInfoAsync();
-            string[] messages = {
-                "I know where you live",
-            };
-
-            // Compose final message
-            string message = messages[new Random().Next(messages.Length)]
-                             + Environment.NewLine + Environment.NewLine
-                             + "----- IP Info -----" + Environment.NewLine
-                             + ipInfo;
-
-            string tempFile = Path.Combine(Path.GetTempPath(), "pet_message.txt");
-            File.WriteAllText(tempFile, message);
-
-            Process.Start(new ProcessStartInfo("notepad.exe", tempFile)
-            {
-                UseShellExecute = true
-            });
-        }
 
         private Task<string> GetIpInfoAsync()
         {

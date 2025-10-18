@@ -73,7 +73,8 @@ namespace EvilDesktopPet
             PickNewWanderDirection();
             //TestCreateFile();
             //Paint();
-            Smile();
+            //Smile();
+            TestCreateFile();
         }
 
 
@@ -103,7 +104,7 @@ namespace EvilDesktopPet
              */
             //RickRoll();
             //RickRoll();
-            SpawnClone();
+            //SpawnClone();
         }
         private void Paint()
         {
@@ -119,6 +120,9 @@ namespace EvilDesktopPet
         }
         private void TestCreateFile()
         {
+            string message = "Virus downloaded";
+            MessageBox.Show(message, "Evil Desktop Pet");
+
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string filePath = Path.Combine(desktop, "Virus.bat");
 
@@ -185,7 +189,6 @@ namespace EvilDesktopPet
         }
 
 
-        // 🐾 Click & drag to move the pet
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             isDragging = true;
@@ -311,6 +314,6 @@ namespace EvilDesktopPet
 
     }
 
-    }
+}
 
 

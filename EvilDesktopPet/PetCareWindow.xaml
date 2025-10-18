@@ -1,16 +1,11 @@
-﻿<Window x:Class="EvilDesktopPet.RansomeWindow"
+﻿<Window x:Class="EvilDesktopPet.PetCareWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EvilDesktopPet"
         mc:Ignorable="d"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
-        Width="700" Height="400"
-        ShowInTaskbar="False"
-        Topmost="True">
+        Title="PetCareWindow" Height="300" Width="500">
     <Grid Background="LightGray" x:Name="MainGrid">
 
     </Grid>

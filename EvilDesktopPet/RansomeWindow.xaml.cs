@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -23,14 +24,7 @@ namespace EvilDesktopPet
     {
         public RansomeWindow()
         {
-            // First Name
-            // Last Name
-            // Expiration Date (MM/YY)
-            // CVC
-            // Billing Address
-            // City
-            // State
-            // Zipcode
+            int canClose = 0;
             InitializeComponent();
 
             StackPanel panel = new StackPanel
@@ -224,6 +218,46 @@ namespace EvilDesktopPet
                 MaxLength = 5
             };
 
+            Button enterBttn = new Button
+            {
+                Width = 100,
+                Height = 50,
+                Content = "Enter"
+            };
+            enterBttn.Click += (sender, e) =>
+            {
+                MessageBox.Show("Thank you");
+                firstName.Text = "";
+                lastName.Text = "";
+                creditNum.Text = "";
+                validThrough.Text = "";
+                wackyNum.Text = "";
+                addr.Text = "";
+                city.Text = "";
+                state.Text = "";
+                zip.Text = "";
+                canClose = 1;
+            };
+            Button closeBttn = new Button
+            {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 30,
+                Height = 30,
+                Content = "X"
+            };
+            closeBttn.Click += (sender, e) =>
+            {
+                if(canClose == 0)
+                {
+                    MessageBox.Show("Nuh uh");
+                }
+                else
+                {
+                    this.Close();
+                }
+            };
+
             addrPt2.Children.Add(cityText);
             addrPt2.Children.Add(city);
             addrPt2.Children.Add(stateText);
@@ -237,7 +271,7 @@ namespace EvilDesktopPet
             wackyNum.PreviewTextInput += OnlyNum;
             zip.PreviewTextInput += OnlyNum;
 
-            
+            MainGrid.Children.Add(closeBttn);
             panel.Children.Add(prompt);
             panel.Children.Add(nameInfo);
             panel.Children.Add(ccPanel);
@@ -245,6 +279,7 @@ namespace EvilDesktopPet
             panel.Children.Add(ccCSV);
             panel.Children.Add(billingInfo);
             panel.Children.Add(addrPt2);
+            panel.Children.Add(enterBttn);
             MainGrid.Children.Add(panel);
         }
 

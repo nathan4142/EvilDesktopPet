@@ -20,9 +20,11 @@ namespace EvilDesktopPet
     /// </summary>
     public partial class ShopWindow : Window
     {
+        private int shopPoints { get; set; } = 0;
         public ShopWindow()
         {
             InitializeComponent();
+            
 
             StackPanel panel = new StackPanel
             {
@@ -34,9 +36,18 @@ namespace EvilDesktopPet
             TextBlock prompt = new TextBlock
             {
                 Text = "Welcome to the shop!",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
                 FontSize = 25
             };
 
+            TextBlock points = new TextBlock
+            {
+                Text = $"Points: {shopPoints}",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                FontSize = 25
+            };
 
             TextBlock foodTxt = new TextBlock
             {
@@ -60,12 +71,26 @@ namespace EvilDesktopPet
                 HorizontalAlignment = HorizontalAlignment.Center
             };
             #endregion
+
+            Button burger = new Button
+            {
+                Width = 50,
+                Height = 50
+            };
+            burger.Click += (sender, e) =>
+            {
+                
+            };
+
             #region StackPanels
             //Declarations
             UniformGrid shopCategoriesTxt = new UniformGrid { Width = 800, Rows = 1, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch};
+            
+            StackPanel foodItems = new StackPanel { VerticalAlignment = VerticalAlignment.Center, Orientation = Orientation.Vertical };
 
             //Adding to stack panels
             panel.Children.Add(prompt);
+            panel.Children.Add(points);
 
             shopCategoriesTxt.Children.Add(foodTxt);
             shopCategoriesTxt.Children.Add(drinkTxt);

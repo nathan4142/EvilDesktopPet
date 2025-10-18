@@ -62,6 +62,7 @@ namespace EvilDesktopPet
             PickNewWanderDirection();
             //TestCreateFile();
             //Paint();
+            Smile();
         }
 
 
@@ -87,8 +88,6 @@ namespace EvilDesktopPet
             }
              */
         }
-
-
         private void Paint()
         {
             for (int i = 0; i < 10; i++)
@@ -97,6 +96,10 @@ namespace EvilDesktopPet
             }
         }
 
+        private void Smile()
+        {
+            Process.Start("cmd.exe", "/c start microsoft.windows.camera:");
+        }
         private void TestCreateFile()
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

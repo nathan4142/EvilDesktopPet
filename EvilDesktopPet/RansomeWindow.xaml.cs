@@ -107,7 +107,7 @@ namespace EvilDesktopPet
 
                 tb.CaretIndex = tb.Text.Length; // move cursor to end
             };
-
+            //for push
             TextBox wackyNum = new TextBox
             {
                 Width = 60,
@@ -123,7 +123,7 @@ namespace EvilDesktopPet
 
 
             panel.Children.Add(prompt);
-            //panel.Children.Add(creditNum); This is giving an error. Fix pls
+            panel.Children.Add(ccPanel);
             panel.Children.Add(validThrough);
             panel.Children.Add(wackyNum);
             MainGrid.Children.Add(panel);

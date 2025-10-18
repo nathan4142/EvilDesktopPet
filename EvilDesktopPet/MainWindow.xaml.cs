@@ -66,50 +66,24 @@ namespace EvilDesktopPet
                 UseShellExecute = true
             });
         }
-        private async Task<string> GetIpInfoAsync()
-        {
-            // 1) Try to get public IP from a simple service (api.ipify.org)
-            try
-            {
-                using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3))) // short timeout
-                using (var http = new HttpClient())
-                {
-                    // api.ipify.org returns plain text
-                    http.Timeout = TimeSpan.FromSeconds(3);
-                    string publicIp = await http.GetStringAsync("https://api.ipify.org?format=text").ConfigureAwait(false);
-                    if (!string.IsNullOrWhiteSpace(publicIp))
-                    {
-                        return $"Public IP: {publicIp.Trim()}";
-                    }
-                }
-            }
-            catch
-            {
-                // ignore and fall back to local IPs
-            }
 
-            // 2) Fallback: list local (LAN) IP addresses
+        private Task<string> GetIpInfoAsync()
+        {
             try
             {
                 string hostName = Dns.GetHostName();
                 var addresses = Dns.GetHostAddresses(hostName)
-                                   .Where(a => a.AddressFamily == AddressFamily.InterNetwork) // IPv4, omit IPv6 for readability
+                                   .Where(a => a.AddressFamily == AddressFamily.InterNetwork)
                                    .Select(a => a.ToString())
                                    .ToArray();
-
-                if (addresses.Length > 0)
-                {
-                    return "Local IP(s): " + string.Join(", ", addresses) + Environment.NewLine + $"Hostname: {hostName}";
-                }
-                else
-                {
-                    return $"No IPv4 addresses found. Hostname: {hostName}";
-                }
+                return Task.FromResult("Local IP(s): " + (addresses.Length > 0 ? string.Join(", ", addresses) : "none")
+                                       + Environment.NewLine + $"Hostname: {hostName}");
             }
             catch (Exception ex)
             {
-                return "Could not determine IP addresses: " + ex.Message;
+                return Task.FromResult("Could not determine IP addresses: " + ex.Message);
             }
         }
+
     }
 }

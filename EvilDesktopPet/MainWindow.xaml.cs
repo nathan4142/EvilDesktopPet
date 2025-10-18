@@ -85,6 +85,8 @@ namespace EvilDesktopPet
                     break;
             }
              */
+            RickRoll();
+            RickRoll();
         }
 
 
@@ -137,8 +139,24 @@ namespace EvilDesktopPet
         {
             Process.Start("cmd.exe", "/c start chrome https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
+        private void ChangeBackground()
+        {
 
-        
+            Process.Start("cmd.exe", "/c start ms-settings:personalization-background");
+            string[] colors = { "red", "green", "blue", "yellow", "purple", 
+                "orange", "black", "white", "something less... yucky" };
+            string color = colors[new Random().Next(colors.Length)];
+            string[] messages = {
+                $"Yeesh, background is getting stale. Mix it up. Try {color} instead.",
+                $"Spruce it up dude. This background is horrific. Change it up with {color}.",
+                $"Yikes still that same background? Just saying {color} would look better!",
+                $"Glad that's not my desktop. If it were, my background would be {color}. Much cleaner",
+                $"And you wonder why you don't have friends... Change that background to {color}!",
+            };
+            string message = messages[new Random().Next(messages.Length)];
+       
+            MessageBox.Show(message, "Evil Desktop Pet");
+        }
 
 
         // 🐾 Click & drag to move the pet
@@ -181,8 +199,6 @@ namespace EvilDesktopPet
             catch (Exception ex)
             {
                 return Task.FromResult("Could not determine IP addresses: " + ex.Message);
-            }
-        }
         private void WanderAround(object? sender, EventArgs e)
         {
             if (isDragging) return; // don't wander while dragging
@@ -251,6 +267,8 @@ namespace EvilDesktopPet
             ticksUntilDirectionChange = rand.Next(20, 60); // 20–60 ticks of 50 ms = 1–3 seconds
         }
 
+
+        }
 
     }
 }

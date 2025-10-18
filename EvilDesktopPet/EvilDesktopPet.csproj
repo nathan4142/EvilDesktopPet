@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Speech" Version="9.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="evilface.jpg" />
     <Resource Include="hackcat.png" />
   </ItemGroup>

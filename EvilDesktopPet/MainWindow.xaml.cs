@@ -490,7 +490,9 @@ namespace EvilDesktopPet
             clone.Show();
         }
 
+        //public void 
 
+        /*
         public async Task RunGlitch(int shakeIterations = 15, int shakeDelayMs = 30, int shakeMagnitude = 10)
         {
             // Read original pos on UI thread
@@ -532,6 +534,7 @@ namespace EvilDesktopPet
                 _ = w.RunGlitch();
             }
         }
+        */
 
 
     }

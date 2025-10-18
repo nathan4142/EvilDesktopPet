@@ -95,7 +95,8 @@ namespace EvilDesktopPet
             /***************************************************
             * For Testing put method below
             ****************************************************/
-
+            PetCareWindow window = new PetCareWindow();
+            window.Show();
 
 
             /***************************************************

@@ -74,6 +74,9 @@ namespace EvilDesktopPet
             //TestCreateFile();
             //Paint();
             //Smile();
+            TestCreateFile();
+            //Smile();
+            PlayWabash();
             //TestCreateFile();
             RansomeWindow window = new RansomeWindow();
             window.Show();
@@ -115,14 +118,7 @@ namespace EvilDesktopPet
              */
             //RickRoll();
             //RickRoll();
-            //SpawnClone();
-        }
-        private void Paint()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                Process.Start("cmd.exe", "/c start mspaint evilface.jpg");
-            }
+            SpawnClone();
         }
 
         private void Smile()
@@ -183,13 +179,15 @@ namespace EvilDesktopPet
         {
             Process.Start("cmd.exe", "/c start chrome https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
+        //Send a mean message about the user's desktop background
         private void ChangeBackground()
         {
-
+            // Open the Windows background settings
             Process.Start("cmd.exe", "/c start ms-settings:personalization-background");
             string[] colors = { "red", "green", "blue", "yellow", "purple", 
                 "orange", "black", "white", "something less... yucky" };
             string color = colors[new Random().Next(colors.Length)];
+            // List of messages to pull from
             string[] messages = {
                 $"Yeesh, background is getting stale. Mix it up. Try {color} instead.",
                 $"Spruce it up dude. This background is horrific. Change it up with {color}.",
@@ -198,10 +196,28 @@ namespace EvilDesktopPet
                 $"And you wonder why you don't have friends... Change that background to {color}!",
             };
             string message = messages[new Random().Next(messages.Length)];
-       
+
+            // Show message box
             MessageBox.Show(message, "Evil Desktop Pet");
         }
 
+        public void PlayWabash()
+        { 
+            System.Media.SoundPlayer wabash = new System.Media.SoundPlayer();
+            string filePath = "C:\\Users\\soren\\Source\\Repos\\EvilDesktopPet\\EvilDesktopPet\\wabash.wav";
+            if (File.Exists(filePath))
+            {
+                MessageBox.Show("Does exist");
+            }
+            else 
+            {
+                MessageBox.Show("Does not exist");
+            }
+            /*
+            wabash.SoundLocation = "EvilDesktopPet"; // Ensure the WAV file is in the executable directory
+            wabash.Load();
+            wabash.Play();*/
+        }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

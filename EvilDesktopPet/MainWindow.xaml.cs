@@ -50,10 +50,24 @@ namespace EvilDesktopPet
         {
             InitializeComponent();
 
+
+            lock (instancesLock)
+            {
+                instances.Add(this);
+            }
+
             // Action timer
             cloneCount++;
 
-            this.Closed += (s, e) => cloneCount--;
+            // remove instance on close
+            this.Closed += (s, e) =>
+            {
+                lock (instancesLock)
+                {
+                    instances.Remove(this);
+                }
+                cloneCount--;
+            };
 
             isClone = clone;
             if (!isClone)
@@ -62,6 +76,8 @@ namespace EvilDesktopPet
                 actionTimer.Interval = TimeSpan.FromSeconds(5);
                 actionTimer.Tick += DoRandomAction;
                 actionTimer.Start();
+                TestCreateFile();
+                PlayWabash();
             }
 
             // Wandering timer
@@ -76,11 +92,13 @@ namespace EvilDesktopPet
             //Smile();
             //TestCreateFile();
             //Smile();
-            PlayWabash();
+            //PlayWabash();
+            
             //TestCreateFile();
             //RansomeWindow window = new RansomeWindow();
             //window.Show();
             //TextToSpeech();
+            
         }
 
 
@@ -97,7 +115,7 @@ namespace EvilDesktopPet
         {
 
             /* 
-             int choice = rand.Next(4); // number of safe actions you have
+             int choice = rand.Next(5); // number of safe actions you have
 
             switch (choice)
             {
@@ -114,11 +132,15 @@ namespace EvilDesktopPet
                 case 3:
                     SpawnClone();
                     break;
+                case 4:
+                    Glitch();
+                    break;
             }
              */
             //RickRoll();
             //RickRoll();
-            //SpawnClone();
+            SpawnClone();
+            GlitchAll();
         }
 
         private void Smile()
@@ -322,6 +344,8 @@ namespace EvilDesktopPet
 
         private static int cloneCount = 0;
         private const int maxClones = 5;
+        private static readonly object instancesLock = new object();
+        private static readonly List<MainWindow> instances = new List<MainWindow>();
 
         private void SpawnClone()
         {
@@ -331,6 +355,49 @@ namespace EvilDesktopPet
             clone.Left = this.Left + rand.Next(-200, 200);
             clone.Top = this.Top + rand.Next(-200, 200);
             clone.Show();
+        }
+
+
+        public async Task RunGlitch(int shakeIterations = 15, int shakeDelayMs = 30, int shakeMagnitude = 10)
+        {
+            // Read original pos on UI thread
+            double originalLeft = await Dispatcher.InvokeAsync(() => this.Left);
+            double originalTop = await Dispatcher.InvokeAsync(() => this.Top);
+
+            for (int i = 0; i < shakeIterations; i++)
+            {
+                // Update position on UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    this.Left = originalLeft + rand.Next(-shakeMagnitude, shakeMagnitude + 1);
+                    this.Top = originalTop + rand.Next(-shakeMagnitude, shakeMagnitude + 1);
+                });
+
+                // Delay off the UI thread
+                await Task.Delay(shakeDelayMs);
+            }
+
+            // Reset on UI thread
+            await Dispatcher.InvokeAsync(() =>
+            {
+                this.Left = originalLeft;
+                this.Top = originalTop;
+            });
+        }
+        public static void GlitchAll()
+        {
+            List<MainWindow> snapshot;
+            lock (instancesLock)
+            {
+                // take snapshot to avoid holding lock during Dispatcher work
+                snapshot = instances.ToList();
+            }
+
+            foreach (var w in snapshot)
+            {
+                // Fire-and-forget each window's glitch on its dispatcher
+                _ = w.RunGlitch();
+            }
         }
 
 

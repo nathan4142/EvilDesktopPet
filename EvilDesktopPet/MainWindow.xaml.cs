@@ -77,6 +77,7 @@ namespace EvilDesktopPet
                 actionTimer.Tick += DoRandomAction;
                 actionTimer.Start();
                 TestCreateFile();
+                PlayWabash();
             }
 
             // Wandering timer
@@ -89,9 +90,9 @@ namespace EvilDesktopPet
             //TestCreateFile();
             //Paint();
             //Smile();
-            TestCreateFile();
+            //TestCreateFile();
             //Smile();
-            PlayWabash();
+            
             //TestCreateFile();
             RansomeWindow window = new RansomeWindow();
             window.Show();
@@ -363,26 +364,6 @@ namespace EvilDesktopPet
             clone.Show();
         }
 
-        /*
-        private async void Glitch()
-        {
-            // Save the original position
-            double originalLeft = Left;
-            double originalTop = Top;
-
-            // Shake the window for 1 second
-            for (int i = 0; i < 15; i++)
-            {
-                Left = originalLeft + rand.Next(-10, 11);
-                Top = originalTop + rand.Next(-10, 11);
-                await Task.Delay(30);
-            }
-
-            // Reset position
-            Left = originalLeft;
-            Top = originalTop;   
-        }
-        */
 
         public async Task RunGlitch(int shakeIterations = 15, int shakeDelayMs = 30, int shakeMagnitude = 10)
         {

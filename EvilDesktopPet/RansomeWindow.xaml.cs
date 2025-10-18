@@ -123,7 +123,7 @@ namespace EvilDesktopPet
 
 
             panel.Children.Add(prompt);
-            panel.Children.Add(creditNum);
+            //panel.Children.Add(creditNum); This is giving an error. Fix pls
             panel.Children.Add(validThrough);
             panel.Children.Add(wackyNum);
             MainGrid.Children.Add(panel);

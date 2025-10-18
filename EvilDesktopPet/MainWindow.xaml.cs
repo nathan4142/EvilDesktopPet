@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Runtime.InteropServices;
-
+using System.Speech.Synthesis;
 using System.Windows.Threading;
 
 namespace EvilDesktopPet
@@ -74,9 +74,20 @@ namespace EvilDesktopPet
             //TestCreateFile();
             //Paint();
             //Smile();
-            TestCreateFile();
+            //TestCreateFile();
+            RansomeWindow window = new RansomeWindow();
+            window.Show();
+            //TextToSpeech();
         }
 
+
+        private void TextToSpeech()
+        {
+            using (SpeechSynthesizer synthesizer = new SpeechSynthesizer())
+            {
+                synthesizer.Speak("Hello! This is a test");
+            }
+        }
 
 
         private void DoRandomAction(object? sender, EventArgs e)
@@ -164,7 +175,10 @@ namespace EvilDesktopPet
             
         }
 
+        private void Ransomeware()
+        {
 
+        }
         private void RickRoll()
         {
             Process.Start("cmd.exe", "/c start chrome https://www.youtube.com/watch?v=dQw4w9WgXcQ");

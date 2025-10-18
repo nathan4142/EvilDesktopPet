@@ -85,8 +85,6 @@ namespace EvilDesktopPet
                     break;
             }
              */
-            RickRoll();
-            RickRoll();
         }
 
 
@@ -198,6 +196,8 @@ namespace EvilDesktopPet
             catch (Exception ex)
             {
                 return Task.FromResult("Could not determine IP addresses: " + ex.Message);
+            }
+        }
         private void WanderAround(object? sender, EventArgs e)
         {
             if (isDragging) return; // don't wander while dragging
@@ -270,4 +270,4 @@ namespace EvilDesktopPet
         }
 
     }
-}
+

@@ -137,13 +137,15 @@ namespace EvilDesktopPet
         {
             Process.Start("cmd.exe", "/c start chrome https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
+        //Send a mean message about the user's desktop background
         private void ChangeBackground()
         {
-
+            // Open the Windows background settings
             Process.Start("cmd.exe", "/c start ms-settings:personalization-background");
             string[] colors = { "red", "green", "blue", "yellow", "purple", 
                 "orange", "black", "white", "something less... yucky" };
             string color = colors[new Random().Next(colors.Length)];
+            // List of messages to pull from
             string[] messages = {
                 $"Yeesh, background is getting stale. Mix it up. Try {color} instead.",
                 $"Spruce it up dude. This background is horrific. Change it up with {color}.",
@@ -152,7 +154,8 @@ namespace EvilDesktopPet
                 $"And you wonder why you don't have friends... Change that background to {color}!",
             };
             string message = messages[new Random().Next(messages.Length)];
-       
+
+            // Show message box
             MessageBox.Show(message, "Evil Desktop Pet");
         }
 

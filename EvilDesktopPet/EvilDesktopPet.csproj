@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="evilface.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="evilface.jpg" />
+  </ItemGroup>
+
 </Project>

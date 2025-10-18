@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EvilDesktopPet"
         mc:Ignorable="d"
         Title="Desktop Pet"
-        Width="50" Height="50"
+        Width="100" Height="100"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -17,7 +17,7 @@
         MouseLeftButtonUp="Window_MouseLeftButtonUp">
 
     <Image x:Name="Pet"
-   Source="/evilface.jpg" 
+   Source="/hackcat.png" 
    Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center"
            
            />

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quizzy", "Quizzy\Quizzy.csproj", "{B850A1ED-1490-4372-ACDB-58E2332D0C04}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilDesktopPet", "EvilDesktopPet\EvilDesktopPet.csproj", "{2D1B48AB-BFC6-4B3E-A653-FF8CC72C852F}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B850A1ED-1490-4372-ACDB-58E2332D0C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B850A1ED-1490-4372-ACDB-58E2332D0C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B850A1ED-1490-4372-ACDB-58E2332D0C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B850A1ED-1490-4372-ACDB-58E2332D0C04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D1B48AB-BFC6-4B3E-A653-FF8CC72C852F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D1B48AB-BFC6-4B3E-A653-FF8CC72C852F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D1B48AB-BFC6-4B3E-A653-FF8CC72C852F}.Release|Any CPU.ActiveCfg = Release|Any CPU

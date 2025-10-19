@@ -20,9 +20,11 @@ namespace EvilDesktopPet
     /// </summary>
     public partial class ShopWindow : Window
     {
+        private int shopPoints { get; set; } = 0;
         public ShopWindow()
         {
             InitializeComponent();
+            
 
             StackPanel panel = new StackPanel
             {
@@ -132,11 +134,13 @@ namespace EvilDesktopPet
             TextBlock prompt = new TextBlock
             {
                 Text = "Welcome to the shop!",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                FontSize = 25
                 FontSize = 25,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
-            
 
             TextBlock foodTxt = new TextBlock
             {
@@ -160,33 +164,24 @@ namespace EvilDesktopPet
                 HorizontalAlignment = HorizontalAlignment.Center
             };
             #endregion
+
+            Button burger = new Button
+            {
+                Width = 50,
+                Height = 50
+            };
+            burger.Click += (sender, e) =>
+            {
+                
+            };
+
             #region StackPanels
             //Declarations
             UniformGrid shopCategoriesTxt = new UniformGrid { Width = 800, Rows = 1, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch};
-            UniformGrid itemsList = new UniformGrid { Width = 800, Rows = 1, HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
-            StackPanel foodItems = new StackPanel { VerticalAlignment = VerticalAlignment.Center, Orientation = Orientation.Vertical };
-            StackPanel drinkItems = new StackPanel { VerticalAlignment = VerticalAlignment.Center, Orientation = Orientation.Vertical };
-            StackPanel toyItems = new StackPanel { VerticalAlignment = VerticalAlignment.Center, Orientation = Orientation.Vertical };
-            itemsList.Children.Add(foodItems);
-            itemsList.Children.Add(drinkItems);
-            itemsList.Children.Add(toyItems);
 
-            //Adding to food items
-            foodItems.Children.Add(catFood);
-            foodItems.Children.Add(chicken);
-            foodItems.Children.Add(beef);
-
-            //Adding to drink items
-            drinkItems.Children.Add(water);
-            drinkItems.Children.Add(soda);
-            drinkItems.Children.Add(milk);
-
-            //Adding to toy items
-            toyItems.Children.Add(ball);
-            toyItems.Children.Add(mouseToy);
-            toyItems.Children.Add(laserPointer);
             //Adding to stack panels
             panel.Children.Add(prompt);
+            panel.Children.Add(points);
 
             shopCategoriesTxt.Children.Add(foodTxt);
             shopCategoriesTxt.Children.Add(drinkTxt);

@@ -172,5 +172,19 @@ namespace EvilDesktopPet
             shopPoints += 1;
             //points.Text = $"Points: {shopPoints}\t\t";
         }
+
+        private void MainGrid_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        /*
+        private void catFood(Object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is Button button && button.Name == "catFood")
+            { 
+                foodBar.Value += 100;
+            }
+        }
+        */
     }
 }

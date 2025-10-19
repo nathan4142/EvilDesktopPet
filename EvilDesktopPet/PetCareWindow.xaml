@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:EvilDesktopPet"
         mc:Ignorable="d"
         Title="PetCareWindow" Height="300" Width="500">
-    <Grid Background="LightGray" x:Name="MainGrid">
 
+    <Grid Background="LightGray" x:Name="MainGrid">
+        
     </Grid>
 </Window>
